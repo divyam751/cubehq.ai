@@ -12,7 +12,7 @@ import axios from "axios";
 function CustomerList() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true); // State for loading indicator
-  const [error, setError] = useState<string | null>(null); // State for API errors
+  const [errors, setErrors] = useState<string | null>(null); // State for API errors
   const [currentPage, setCurrentPage] = useState<number>(1); // State to keep track of current page
   const customers = useSelector(
     (state: RootState) => state.customer.customerList
@@ -34,14 +34,14 @@ function CustomerList() {
         if (response.status === 200) {
           const data: Customer[] = response.data;
           data.forEach((customer) => dispatch(addCustomer(customer)));
-          setError(null);
+          setErrors(null);
         } else {
-          setError(
+          setErrors(
             `Failed to fetch customers: ${response.status} ${response.statusText}`
           );
         }
       } catch (error) {
-        setError(`Error fetching customers: ${error.message}`);
+        setErrors(`Error fetching customers: ${error}`);
       } finally {
         setLoading(false); // loading set  to false after fetching completes
       }
@@ -73,7 +73,7 @@ function CustomerList() {
 
   return (
     <div>
-      {error && <div className="error">{error}</div>}
+      {errors && <div className="error">{errors}</div>}
       {loading && (
         <div className="loader-box">
           <span className="loader"></span>
