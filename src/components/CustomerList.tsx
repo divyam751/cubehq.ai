@@ -92,9 +92,7 @@ function CustomerList() {
             }`}
             onClick={() => handleClick(customer)}
           >
-            <p>
-              {customer.name} {customer.id}
-            </p>
+            <p>{customer.name}</p>
             <p>{customer.title}</p>
           </div>
         ))}
