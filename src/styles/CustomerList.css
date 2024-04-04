@@ -16,7 +16,7 @@
   border: 1px solid lightgray;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
-.list-childBox :first-child {
+.list-childBox > :first-child {
   font-weight: bold;
   font-size: 20px;
 }

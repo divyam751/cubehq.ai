@@ -62,7 +62,7 @@ const CustomerDetails: React.FC = () => {
         }
       } catch (error) {
         console.error("Error fetching random photos:", error);
-        setError(`Error fetching random photos: ${error.message}`);
+        setError(`Error fetching random photos: ${error}`);
       } finally {
         setLoading(false);
       }

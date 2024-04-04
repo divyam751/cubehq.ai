@@ -22,17 +22,21 @@ function CustomerList() {
   );
 
   const bottomBoundaryRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://json-cubehq-ai.onrender.com/customers?page=${currentPage}&limit=10`
+          `https://json-cubehq-ai.onrender.com/customers?_page=${currentPage}&_limit=10`
         );
 
         if (response.status === 200) {
           const data: Customer[] = response.data;
+          console.log();
+          // Only add customers to the state if the current page is 1
+          if (currentPage === 1) {
+            dispatch({ type: "RESET_CUSTOMERS" }); // Reset the customer list
+          }
           data.forEach((customer) => dispatch(addCustomer(customer)));
           setErrors(null);
         } else {
@@ -43,7 +47,7 @@ function CustomerList() {
       } catch (error) {
         setErrors(`Error fetching customers: ${error}`);
       } finally {
-        setLoading(false); // loading set  to false after fetching completes
+        setLoading(false);
       }
     };
 
@@ -88,7 +92,9 @@ function CustomerList() {
             }`}
             onClick={() => handleClick(customer)}
           >
-            <p>{customer.name}</p>
+            <p>
+              {customer.name} {customer.id}
+            </p>
             <p>{customer.title}</p>
           </div>
         ))}
